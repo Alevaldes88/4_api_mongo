@@ -69,3 +69,14 @@ async def update_book(book_id: str, book_data: BookCreate):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
     
+
+async def delete_book_by_id(book_id: str):
+    try:
+        if not ObjectId.is_valid(book_id):
+            raise HTTPException(status_code=400, detail='El id no válido')
+        result = await book_collection.delete_one({"_id": ObjectId(book_id)})
+        if not result.deleted_count == 1:
+            raise HTTPException(status_code= 409, detail= 'No se ha borrado el libro, intentalo nuevamente')
+        return {'msg': f'El libro con id {book_id} se ha borrado correctamente'}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
