@@ -13,3 +13,8 @@ async def create_book(book: BookCreate):
 @router.get('/', status_code=200)
 async def get_all():
     return await book_controllers.get_book_list()
+
+# Obtener un libro por id
+@router.get('/{book_id}', status_code=200)
+async def get_book_by_id(book_id: str):
+    return await book_controllers.get_book_by_id(book_id)
