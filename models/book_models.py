@@ -5,7 +5,7 @@ class BookCreate(BaseModel):
     title: str
     author: str
     year: int
-    page: Optional[int]
+    pages: Optional[int]
 
 class Book(BookCreate):
     id: str
